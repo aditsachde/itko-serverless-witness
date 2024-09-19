@@ -15,7 +15,10 @@ type Config struct {
 	Keys        map[string]string `json:"keys"`
 }
 
-var db_url = flag.String("db-url", "", "Database connection string")
+var (
+	db_url = flag.String("db-url", "", "Database connection string")
+	suffix = flag.String("suffix", "", "Name suffix")
+)
 
 var regions = []string{
 	"africa-south1",
@@ -77,7 +80,7 @@ func main() {
 
 	// iterate over the regions
 	for _, region := range regions {
-		skey, vkey, err := note.GenerateKey(nil, region)
+		skey, vkey, err := note.GenerateKey(nil, region+*suffix)
 		if err != nil {
 			log.Fatalf("Failed to generate keys: %v", err)
 		}

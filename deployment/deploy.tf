@@ -13,6 +13,11 @@ variable "tag" {
   type        = string
 }
 
+variable "domain" {
+  description = "Base domain for domain mapping"
+  type        = string
+}
+
 provider "google" {
   project = var.project_id
 }
@@ -76,11 +81,24 @@ resource "google_cloud_run_v2_service" "witness" {
 
       env {
         name  = "CONFIG_SECRET"
-        value = "${google_secret_manager_secret.configuration.id}/versions/latest"
       }
     }
   }
 }
+
+resource "google_cloud_run_domain_mapping" "witness_domain" {
+  for_each = toset(var.regions)
+
+  name     = "${each.key}.${var.domain}"
+  location = google_cloud_run_v2_service.witness[each.key].location
+  metadata {
+    namespace = data.google_project.project.project_id
+  }
+  spec {
+    route_name = google_cloud_run_v2_service.witness[each.key].name
+  }
+}
+
 
 resource "google_cloud_run_service_iam_binding" "public_access" {
   for_each = toset(var.regions)
@@ -126,4 +144,8 @@ resource "google_pubsub_subscription" "subscription" {
 
 output "urls" {
   value = { for r in var.regions : r => google_cloud_run_v2_service.witness[r].uri }
+}
+
+output "domain_mappings" {
+  value = { for r in var.regions : r => google_cloud_run_domain_mapping.witness_domain[r].name }
 }

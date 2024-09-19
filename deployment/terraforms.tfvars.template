@@ -1,3 +1,4 @@
 project_id = "replace"
 regions    = ["us-east1", "us-central1", "us-west1", "us-south1"]
 tag        = "replace"
+domain     = "replace"
