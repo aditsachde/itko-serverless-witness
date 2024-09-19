@@ -20,16 +20,18 @@ us-west1.gcp.witness.itko.dev+5fe7b537+AaaMycrWp2dQgBdye1B40/yU5TpKLgyRTGP5YiFl+
 
 ### TF Part 1
 
-Create a new GCP project and fill the ID in terraform.tfvars
-Select the regions to deploy to and fill into terraform.tfvars
-Fill the current git sha short hash (git rev-parse --short HEAD) in terraform.tfvars
-Specify a verified base domain (such as gcp.witness.itko.dev) in terraform.tfvars
+- Create a new GCP project and fill the ID in terraform.tfvars
+- Select the regions to deploy to and fill into terraform.tfvars
+- Fill the current git sha short hash (git rev-parse --short HEAD) in terraform.tfvars
+- Specify a verified base domain (such as gcp.witness.itko.dev) in terraform.tfvars
 
 Finally, run `terraform apply`. This will create some resources, but is expected to fail.
 
 ### Non TF stuff
 
 Deploy a database somewhere. I used cockroachdb serverless. Make sure to have the connection string handy.
+
+Create the table in the database `go run ./cmd/init-db -db-url 'REPLACE'`
 
 Generate some credentials
 `go run ./cmd/generate-config -db-url 'REPLACE' > .env`
