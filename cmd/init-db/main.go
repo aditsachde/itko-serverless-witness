@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	url = flag.String("url", "", "DB connection URL")
+	url = flag.String("db-url", "", "DB connection URL")
 )
 
 func main() {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -49,6 +50,13 @@ func ParseConfig() (db_url string, witness_key string, region string, err error)
 
 		config = string(result.Payload.Data)
 	}
+
+	// Base64 decode the config
+	decoded, err := base64.StdEncoding.DecodeString(config)
+	if err != nil {
+		return "", "", "", fmt.Errorf("failed to decode config: %v", err)
+	}
+	config = string(decoded)
 
 	// parse the config
 	var c Config
