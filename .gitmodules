@@ -1,0 +1,3 @@
+[submodule "witness"]
+	path = witness
+	url = git@github.com:aditsachde/witness.git
