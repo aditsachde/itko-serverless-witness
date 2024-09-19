@@ -40,7 +40,6 @@ resource "google_secret_manager_secret_iam_member" "secret-access" {
   depends_on = [google_secret_manager_secret.configuration]
 }
 
-
 resource "google_artifact_registry_repository" "repo" {
   location      = "us-central1"
   repository_id = "witness"
@@ -99,7 +98,6 @@ resource "google_cloud_run_domain_mapping" "witness_domain" {
     route_name = google_cloud_run_v2_service.witness[each.key].name
   }
 }
-
 
 resource "google_cloud_run_service_iam_binding" "public_access" {
   for_each = toset(var.regions)
