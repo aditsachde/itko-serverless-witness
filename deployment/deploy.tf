@@ -81,6 +81,7 @@ resource "google_cloud_run_v2_service" "witness" {
 
       env {
         name  = "CONFIG_SECRET"
+        value = "${google_secret_manager_secret.configuration.id}/versions/latest"
       }
     }
   }
