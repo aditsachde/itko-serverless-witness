@@ -16,6 +16,8 @@ us-east1.gcp.witness.itko.dev+5b4c83cb+AbwpB77LBXaJ1ht21Bh18OHf1nUJ8XM2H6x67Fe56
 us-west1.gcp.witness.itko.dev+5fe7b537+AaaMycrWp2dQgBdye1B40/yU5TpKLgyRTGP5YiFl+jRK
 ```
 
+Logs are witnessed once every five minutes via a cloud scheduler job.
+
 ## Deploy to GCP
 
 ### TF Part 1
